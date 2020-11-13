@@ -1,0 +1,76 @@
+Release 14.7 - xst P.20131013 (nt64)
+Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
+--> Parameter TMPDIR set to D:/Code/ISE/2018_topic4_student/xst/projnav.tmp
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.10 secs
+ 
+--> Parameter xsthdpdir set to D:/Code/ISE/2018_topic4_student/xst
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.10 secs
+ 
+--> Reading design: mips_top.prj
+
+TABLE OF CONTENTS
+  1) Synthesis Options Summary
+  2) HDL Parsing
+  3) HDL Elaboration
+  4) HDL Synthesis
+       4.1) HDL Synthesis Report
+  5) Advanced HDL Synthesis
+       5.1) Advanced HDL Synthesis Report
+  6) Low Level Synthesis
+  7) Partition Report
+  8) Design Summary
+       8.1) Primitive and Black Box Usage
+       8.2) Device utilization summary
+       8.3) Partition Resource Summary
+       8.4) Timing Report
+            8.4.1) Clock Information
+            8.4.2) Asynchronous Control Signals Information
+            8.4.3) Timing Summary
+            8.4.4) Timing Details
+            8.4.5) Cross Clock Domains Report
+
+
+=========================================================================
+*                          HDL Parsing                                  *
+=========================================================================
+Analyzing Verilog file "D:\Code\ISE\2018_topic4_student\regfile.v" into library work
+Parsing verilog file "define.vh" included at line 1.
+Parsing module <regfile>.
+Analyzing Verilog file "D:\Code\ISE\2018_topic4_student\alu.v" into library work
+Parsing verilog file "define.vh" included at line 1.
+Parsing module <alu>.
+Parsing verilog file "mips_define.vh" included at line 14.
+Analyzing Verilog file "D:\Code\ISE\2018_topic4_student\datapath.v" into library work
+Parsing verilog file "define.vh" included at line 1.
+Parsing module <datapath>.
+Parsing verilog file "mips_define.vh" included at line 74.
+Analyzing Verilog file "D:\Code\ISE\2018_topic4_student\controller.v" into library work
+Parsing verilog file "define.vh" included at line 1.
+Parsing module <controller>.
+Parsing verilog file "mips_define.vh" included at line 61.
+ERROR:HDLCompiler:69 - "D:\Code\ISE\2018_topic4_student\controller.v" Line 146: <EXE_A_BRANCH> is not declared.
+ERROR:HDLCompiler:69 - "D:\Code\ISE\2018_topic4_student\controller.v" Line 147: <EXE_B_BRANCH> is not declared.
+ERROR:HDLCompiler:69 - "D:\Code\ISE\2018_topic4_student\controller.v" Line 155: <EXE_A_BRANCH> is not declared.
+ERROR:HDLCompiler:69 - "D:\Code\ISE\2018_topic4_student\controller.v" Line 156: <EXE_B_BRANCH> is not declared.
+ERROR:HDLCompiler:69 - "D:\Code\ISE\2018_topic4_student\controller.v" Line 223: <FROM_EXMEM_ALUOUT> is not declared.
+ERROR:HDLCompiler:69 - "D:\Code\ISE\2018_topic4_student\controller.v" Line 225: <FROM_EXMEM_ALUOUT> is not declared.
+ERROR:HDLCompiler:69 - "D:\Code\ISE\2018_topic4_student\controller.v" Line 227: <FROM_MEMWB_DM> is not declared.
+ERROR:HDLCompiler:69 - "D:\Code\ISE\2018_topic4_student\controller.v" Line 229: <FROM_MEMWB_DM> is not declared.
+ERROR:HDLCompiler:69 - "D:\Code\ISE\2018_topic4_student\controller.v" Line 233: <FROM_MEMWB_ALUOUT> is not declared.
+ERROR:HDLCompiler:69 - "D:\Code\ISE\2018_topic4_student\controller.v" Line 235: <FROM_MEMWB_ALUOUT> is not declared.
+ERROR:HDLCompiler:598 - "D:\Code\ISE\2018_topic4_student\controller.v" Line 8: Module <controller> ignored due to previous errors.
+Verilog file D:\Code\ISE\2018_topic4_student\controller.v ignored due to errors
+--> 
+
+Total memory usage is 4504828 kilobytes
+
+Number of errors   :   11 (   0 filtered)
+Number of warnings :    0 (   0 filtered)
+Number of infos    :    0 (   0 filtered)
+

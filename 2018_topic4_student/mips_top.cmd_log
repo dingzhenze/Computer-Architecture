@@ -1,0 +1,2 @@
+xst -intstyle ise -ifn "Z:/Documents/2020AutWin/computer_hierarchy/2018_topic3_student/mips_top.xst" -ofn "Z:/Documents/2020AutWin/computer_hierarchy/2018_topic3_student/mips_top.syr" 
+xst -intstyle ise -ifn "D:/Code/ISE/2018_topic3_student/mips_top.xst" -ofn "D:/Code/ISE/2018_topic3_student/mips_top.syr" 
