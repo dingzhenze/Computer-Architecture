@@ -230,12 +230,12 @@ module controller (/*AUTOARG*/
 
 	always @(*) begin
 		load_stall = 0;
-		if(rs_used && regw_addr_exe == addr_rs && wb_wen_exe && is_load_exe)begin
-			load_stall = 1;
-		end
-		if(rt_used && regw_addr_exe == addr_rt && wb_wen_exe && is_load_exe &&~is_store)begin
-			load_stall = 1;
-		end
+		// if(rs_used && regw_addr_exe == addr_rs && wb_wen_exe && is_load_exe)begin
+		// 	load_stall = 1;
+		// end
+		// if(rt_used && regw_addr_exe == addr_rt && wb_wen_exe && is_load_exe &&~is_store)begin
+		// 	load_stall = 1;
+		// end
 	end
 
 	always @(*) begin
@@ -248,21 +248,21 @@ module controller (/*AUTOARG*/
 	always @(*) begin
 		exe_fwd_a_ctrl = FROM_REG;
 		exe_fwd_b_ctrl = FROM_REG;
-		if (wb_wen_mem && regw_addr_mem != 0 ) begin
-			if(regw_addr_mem == addr_rs)
+		if (wb_wen_exe && regw_addr_exe != 0 ) begin
+			if(regw_addr_exe == addr_rs)
 				exe_fwd_a_ctrl = FROM_EXE_ALUOUT;
-			if(regw_addr_mem == addr_rt)
+			if(regw_addr_exe == addr_rt)
 				exe_fwd_b_ctrl = FROM_EXE_ALUOUT;
-			if(regw_addr_mem == addr_rs && mem_ren_mem)
+			if(regw_addr_exe == addr_rs && mem_ren_exe)
 				exe_fwd_a_ctrl = FROM_MEM_DM;
-			if(regw_addr_mem == addr_rt && mem_ren_mem)
+			if(regw_addr_exe == addr_rt && mem_ren_exe)
 				exe_fwd_b_ctrl = FROM_MEM_DM;
 		end 
 		
-		if(wb_wen_wb && regw_addr_wb != 0) begin
-			if(regw_addr_mem != addr_rs && regw_addr_wb == addr_rs) 
+		if(wb_wen_mem && regw_addr_mem != 0) begin
+			if(regw_addr_exe != addr_rs && regw_addr_mem == addr_rs) 
 				exe_fwd_a_ctrl = FROM_MEM_ALUOUT;
-			if(regw_addr_mem != addr_rt && regw_addr_wb == addr_rt)
+			if(regw_addr_exe != addr_rt && regw_addr_mem == addr_rt)
 				exe_fwd_b_ctrl = FROM_MEM_ALUOUT;
 		end
 	end	

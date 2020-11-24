@@ -4,13 +4,13 @@ Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.09 secs
+Total CPU time to Xst completion: 0.11 secs
  
 --> Parameter xsthdpdir set to xst
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.09 secs
+Total CPU time to Xst completion: 0.11 secs
  
 --> Reading design: mips_top.prj
 
@@ -203,6 +203,7 @@ Elaborating module <mips>.
 Elaborating module <mips_core>.
 
 Elaborating module <controller>.
+WARNING:HDLCompiler:1127 - "\\mac\home\code\Computer-Architecture\2018_topic4_student\controller.v" Line 71: Assignment to rs_used ignored, since the identifier is never used
 WARNING:HDLCompiler:413 - "\\mac\home\code\Computer-Architecture\2018_topic4_student\controller.v" Line 225: Result of 5-bit expression is truncated to fit in 1-bit target.
 
 Elaborating module <datapath>.
@@ -398,6 +399,7 @@ Synthesizing Unit <controller>.
 WARNING:Xst:647 - Input <inst<15:6>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
 WARNING:Xst:647 - Input <inst<20:17>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
 WARNING:Xst:647 - Input <inst<25:22>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <regw_addr_wb> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
 WARNING:Xst:647 - Input <is_branch_exe> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
 WARNING:Xst:647 - Input <is_branch_mem> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
 WARNING:Xst:647 - Input <if_valid> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
@@ -405,19 +407,18 @@ WARNING:Xst:647 - Input <id_valid> is never used. This port will be preserved an
 WARNING:Xst:647 - Input <exe_valid> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
 WARNING:Xst:647 - Input <mem_valid> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
 WARNING:Xst:647 - Input <wb_valid> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
-WARNING:Xst:647 - Input <mem_ren_exe> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <mem_ren_mem> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <wb_wen_wb> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
 WARNING:Xst:647 - Input <rs_rt_equal> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
     Found 1-bit register for signal <debug_step_prev>.
-    Found 5-bit comparator equal for signal <regw_addr_exe[4]_GND_13_o_equal_54_o> created at line 233
-    Found 5-bit comparator equal for signal <regw_addr_exe[4]_GND_13_o_equal_55_o> created at line 236
-    Found 5-bit comparator equal for signal <regw_addr_mem[4]_GND_13_o_equal_58_o> created at line 252
-    Found 5-bit comparator equal for signal <regw_addr_mem[4]_GND_13_o_equal_60_o> created at line 254
-    Found 5-bit comparator equal for signal <regw_addr_wb[4]_GND_13_o_equal_70_o> created at line 263
-    Found 5-bit comparator equal for signal <regw_addr_wb[4]_GND_13_o_equal_73_o> created at line 265
+    Found 5-bit comparator equal for signal <regw_addr_exe[4]_GND_13_o_equal_54_o> created at line 243
+    Found 5-bit comparator equal for signal <regw_addr_exe[4]_GND_13_o_equal_56_o> created at line 252
+    Found 5-bit comparator equal for signal <regw_addr_mem[4]_GND_13_o_equal_68_o> created at line 263
+    Found 5-bit comparator equal for signal <regw_addr_mem[4]_GND_13_o_equal_71_o> created at line 265
     Summary:
 	inferred   1 D-type flip-flop(s).
-	inferred   6 Comparator(s).
-	inferred  15 Multiplexer(s).
+	inferred   4 Comparator(s).
+	inferred  11 Multiplexer(s).
 Unit <controller> synthesized.
 
 Synthesizing Unit <datapath>.
@@ -688,7 +689,7 @@ Macro Statistics
  6-bit register                                        : 1
  65-bit register                                       : 1
  8-bit register                                        : 1
-# Comparators                                          : 41
+# Comparators                                          : 39
  10-bit comparator greater                             : 9
  10-bit comparator lessequal                           : 4
  11-bit comparator lessequal                           : 2
@@ -696,13 +697,13 @@ Macro Statistics
  32-bit comparator equal                               : 1
  32-bit comparator greater                             : 1
  4-bit comparator greater                              : 2
- 5-bit comparator equal                                : 6
+ 5-bit comparator equal                                : 4
  5-bit comparator lessequal                            : 4
  7-bit comparator lessequal                            : 6
  8-bit comparator lessequal                            : 2
  9-bit comparator lessequal                            : 2
-# Multiplexers                                         : 138
- 1-bit 2-to-1 multiplexer                              : 87
+# Multiplexers                                         : 134
+ 1-bit 2-to-1 multiplexer                              : 83
  17-bit 2-to-1 multiplexer                             : 2
  2-bit 2-to-1 multiplexer                              : 8
  32-bit 2-to-1 multiplexer                             : 22
@@ -934,7 +935,7 @@ Macro Statistics
  6-bit up counter                                      : 1
 # Registers                                            : 893
  Flip-Flops                                            : 893
-# Comparators                                          : 41
+# Comparators                                          : 39
  10-bit comparator greater                             : 9
  10-bit comparator lessequal                           : 4
  11-bit comparator lessequal                           : 2
@@ -942,13 +943,13 @@ Macro Statistics
  32-bit comparator equal                               : 1
  32-bit comparator greater                             : 1
  4-bit comparator greater                              : 2
- 5-bit comparator equal                                : 6
+ 5-bit comparator equal                                : 4
  5-bit comparator lessequal                            : 4
  7-bit comparator lessequal                            : 6
  8-bit comparator lessequal                            : 2
  9-bit comparator lessequal                            : 2
-# Multiplexers                                         : 258
- 1-bit 2-to-1 multiplexer                              : 181
+# Multiplexers                                         : 254
+ 1-bit 2-to-1 multiplexer                              : 177
  1-bit 24-to-1 multiplexer                             : 32
  17-bit 2-to-1 multiplexer                             : 2
  2-bit 2-to-1 multiplexer                              : 8
@@ -1097,10 +1098,10 @@ WARNING:Xst:2677 - Node <DISPLAY/P2S_LED/finish> of sequential type is unconnect
 WARNING:Xst:2677 - Node <DISPLAY/P2S_LED/s_clr> of sequential type is unconnected in block <mips_top>.
 WARNING:Xst:2677 - Node <DISPLAY/P2S_SEG/finish> of sequential type is unconnected in block <mips_top>.
 WARNING:Xst:2677 - Node <DISPLAY/P2S_SEG/s_clr> of sequential type is unconnected in block <mips_top>.
-INFO:Xst:2261 - The FF/Latch <MIPS/MIPS_CORE/DATAPATH/mem_ren_exe> in Unit <mips_top> is equivalent to the following FF/Latch, which will be removed : <MIPS/MIPS_CORE/DATAPATH/wb_data_src_exe> 
 INFO:Xst:2261 - The FF/Latch <VGA/B_3> in Unit <mips_top> is equivalent to the following 3 FFs/Latches, which will be removed : <VGA/B_2> <VGA/B_1> <VGA/B_0> 
-INFO:Xst:2261 - The FF/Latch <MIPS/MIPS_CORE/DATAPATH/mem_ren_mem> in Unit <mips_top> is equivalent to the following FF/Latch, which will be removed : <MIPS/MIPS_CORE/DATAPATH/wb_data_src_mem> 
+INFO:Xst:2261 - The FF/Latch <MIPS/MIPS_CORE/DATAPATH/is_load_exe> in Unit <mips_top> is equivalent to the following 2 FFs/Latches, which will be removed : <MIPS/MIPS_CORE/DATAPATH/mem_ren_mem> <MIPS/MIPS_CORE/DATAPATH/wb_data_src_mem> 
 INFO:Xst:2261 - The FF/Latch <VGA/G_3> in Unit <mips_top> is equivalent to the following 7 FFs/Latches, which will be removed : <VGA/G_2> <VGA/G_1> <VGA/G_0> <VGA/R_3> <VGA/R_2> <VGA/R_1> <VGA/R_0> 
+INFO:Xst:2261 - The FF/Latch <MIPS/MIPS_CORE/DATAPATH/is_load_id> in Unit <mips_top> is equivalent to the following 2 FFs/Latches, which will be removed : <MIPS/MIPS_CORE/DATAPATH/mem_ren_exe> <MIPS/MIPS_CORE/DATAPATH/wb_data_src_exe> 
 
 Mapping all equations...
 Building and optimizing final netlist ...
@@ -1112,8 +1113,8 @@ Final Macro Processing ...
 Final Register Report
 
 Macro Statistics
-# Registers                                            : 862
- Flip-Flops                                            : 862
+# Registers                                            : 860
+ Flip-Flops                                            : 860
 
 =========================================================================
 
@@ -1136,25 +1137,25 @@ Top Level Output File Name         : mips_top.ngc
 
 Primitive and Black Box Usage:
 ------------------------------
-# BELS                             : 1696
+# BELS                             : 1688
 #      GND                         : 2
 #      INV                         : 11
 #      LUT1                        : 85
 #      LUT2                        : 41
-#      LUT3                        : 136
-#      LUT4                        : 195
-#      LUT5                        : 281
-#      LUT6                        : 591
+#      LUT3                        : 167
+#      LUT4                        : 194
+#      LUT5                        : 247
+#      LUT6                        : 587
 #      MUXCY                       : 171
 #      MUXF7                       : 29
 #      VCC                         : 2
 #      XORCY                       : 152
-# FlipFlops/Latches                : 862
+# FlipFlops/Latches                : 860
 #      FD                          : 96
 #      FD_1                        : 30
 #      FDE                         : 90
 #      FDR                         : 58
-#      FDRE                        : 588
+#      FDRE                        : 586
 # RAMS                             : 30
 #      RAM32M                      : 20
 #      RAM32X1D                    : 8
@@ -1175,18 +1176,18 @@ Selected Device : 7k325tfbg676-2l
 
 
 Slice Logic Utilization: 
- Number of Slice Registers:             862  out of  407600     0%  
- Number of Slice LUTs:                 1436  out of  203800     0%  
-    Number used as Logic:              1340  out of  203800     0%  
+ Number of Slice Registers:             860  out of  407600     0%  
+ Number of Slice LUTs:                 1428  out of  203800     0%  
+    Number used as Logic:              1332  out of  203800     0%  
     Number used as Memory:               96  out of  64000     0%  
        Number used as RAM:               96
 
 Slice Logic Distribution: 
- Number of LUT Flip Flop pairs used:   1735
-   Number with an unused Flip Flop:     873  out of   1735    50%  
-   Number with an unused LUT:           299  out of   1735    17%  
-   Number of fully used LUT-FF pairs:   563  out of   1735    32%  
-   Number of unique control sets:        21
+ Number of LUT Flip Flop pairs used:   1721
+   Number with an unused Flip Flop:     861  out of   1721    50%  
+   Number with an unused LUT:           293  out of   1721    17%  
+   Number of fully used LUT-FF pairs:   567  out of   1721    32%  
+   Number of unique control sets:        20
 
 IO Utilization: 
  Number of IOs:                          40
@@ -1218,7 +1219,7 @@ Clock Information:
 -------------------------------------+----------------------------------------------------------------+-------+
 Clock Signal                         | Clock buffer(FF name)                                          | Load  |
 -------------------------------------+----------------------------------------------------------------+-------+
-CLK_GEN/clkout3                      | BUFG                                                           | 668   |
+CLK_GEN/clkout3                      | BUFG                                                           | 666   |
 CLK_GEN/clkout2                      | BUFG                                                           | 224   |
 VGA_DEBUG/FONT_8X16/BRAM_PC_VGA_0/N01| NONE(VGA_DEBUG/FONT_8X16/BRAM_PC_VGA_0/FONT_8X16/BRAM_PC_VGA_0)| 1     |
 -------------------------------------+----------------------------------------------------------------+-------+
@@ -1231,7 +1232,7 @@ Control Signal                                                                  
 ----------------------------------------------------------------------------------+----------------------------------------------------------------+-------+
 VGA_DEBUG/FONT_8X16/BRAM_PC_VGA_0/N01(VGA_DEBUG/FONT_8X16/BRAM_PC_VGA_0/XST_GND:G)| NONE(VGA_DEBUG/FONT_8X16/BRAM_PC_VGA_0/FONT_8X16/BRAM_PC_VGA_0)| 12    |
 VGA_DEBUG/FONT_8X16/BRAM_PC_VGA_0/N1(VGA_DEBUG/FONT_8X16/BRAM_PC_VGA_0/XST_VCC:P) | NONE(VGA_DEBUG/FONT_8X16/BRAM_PC_VGA_0/FONT_8X16/BRAM_PC_VGA_0)| 8     |
-MIPS/DATA_RAM/we_GND_18_o_AND_81_o(MIPS/DATA_RAM/we_GND_18_o_AND_81_o1:O)         | NONE(MIPS/DATA_RAM/Mram_data1)                                 | 2     |
+MIPS/DATA_RAM/we_GND_18_o_AND_74_o(MIPS/DATA_RAM/we_GND_18_o_AND_74_o1:O)         | NONE(MIPS/DATA_RAM/Mram_data1)                                 | 2     |
 ----------------------------------------------------------------------------------+----------------------------------------------------------------+-------+
 
 Timing Summary:
@@ -1239,7 +1240,7 @@ Timing Summary:
 Speed Grade: -2
 
    Minimum period: 7.798ns (Maximum Frequency: 128.235MHz)
-   Minimum input arrival time before clock: 1.686ns
+   Minimum input arrival time before clock: 2.074ns
    Maximum output required time after clock: 0.711ns
    Maximum combinational path delay: 0.000ns
 
@@ -1250,7 +1251,7 @@ All values displayed in nanoseconds (ns)
 =========================================================================
 Timing constraint: Default period analysis for Clock 'CLK_GEN/clkout3'
   Clock period: 7.798ns (frequency: 128.235MHz)
-  Total number of paths / destination ports: 597252 / 2064
+  Total number of paths / destination ports: 593143 / 2058
 -------------------------------------------------------------------------
 Delay:               3.899ns (Levels of Logic = 14)
   Source:            MIPS/DATA_RAM/Mram_data1 (RAM)
@@ -1305,7 +1306,7 @@ Delay:               5.780ns (Levels of Logic = 9)
      RAM32M:ADDRC1->DOC1    1   0.299   0.522  VGA_DEBUG/Mram_data_buf3 (VGA_DEBUG/Sh45)
      LUT6:I2->O            1   0.043   0.613  VGA_DEBUG/Sh1492 (VGA_DEBUG/Sh1492)
      LUT6:I0->O            7   0.043   0.637  VGA_DEBUG/Sh1493 (VGA_DEBUG/Sh149)
-     LUT5:I0->O            1   0.043   0.350  VGA_DEBUG/Mmux_GND_20_o_GND_20_o_mux_39_OUT24_SW0 (N258)
+     LUT5:I0->O            1   0.043   0.350  VGA_DEBUG/Mmux_GND_20_o_GND_20_o_mux_39_OUT24_SW0 (N252)
      LUT6:I5->O            1   0.043   0.000  VGA_DEBUG/Mmux_GND_20_o_GND_20_o_mux_39_OUT24 (VGA_DEBUG/GND_20_o_GND_20_o_mux_39_OUT<1>)
      FDE:D                    -0.000          VGA_DEBUG/ascii_code_1
     ----------------------------------------
@@ -1314,9 +1315,9 @@ Delay:               5.780ns (Levels of Logic = 9)
 
 =========================================================================
 Timing constraint: Default OFFSET IN BEFORE for Clock 'CLK_GEN/clkout3'
-  Total number of paths / destination ports: 660 / 660
+  Total number of paths / destination ports: 565 / 565
 -------------------------------------------------------------------------
-Offset:              1.686ns (Levels of Logic = 3)
+Offset:              2.074ns (Levels of Logic = 3)
   Source:            SW<0> (PAD)
   Destination:       MIPS/MIPS_CORE/DATAPATH/inst_addr_31 (FF)
   Destination Clock: CLK_GEN/clkout3 rising
@@ -1325,19 +1326,19 @@ Offset:              1.686ns (Levels of Logic = 3)
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     IBUF:I->O             4   0.000   0.367  SW_0_IBUF (SW_0_IBUF)
-     LUT3:I2->O            1   0.043   0.603  MIPS/MIPS_CORE/DATAPATH/_n0319_inv_SW0 (N66)
-     LUT6:I1->O           32   0.043   0.469  MIPS/MIPS_CORE/DATAPATH/_n0319_inv (MIPS/MIPS_CORE/DATAPATH/_n0319_inv)
+     IBUF:I->O             2   0.000   0.527  SW_0_IBUF (SW_0_IBUF)
+     LUT4:I0->O          533   0.043   0.831  MIPS/MIPS_CORE/CONTROLLER/if_en1 (MIPS/MIPS_CORE/exe_en)
+     LUT6:I0->O           32   0.043   0.469  MIPS/MIPS_CORE/DATAPATH/_n0319_inv1 (MIPS/MIPS_CORE/DATAPATH/_n0319_inv)
      FDRE:CE                   0.161          MIPS/MIPS_CORE/DATAPATH/inst_addr_0
     ----------------------------------------
-    Total                      1.686ns (0.247ns logic, 1.439ns route)
-                                       (14.6% logic, 85.4% route)
+    Total                      2.074ns (0.247ns logic, 1.827ns route)
+                                       (11.9% logic, 88.1% route)
 
 =========================================================================
 Timing constraint: Default OFFSET IN BEFORE for Clock 'CLK_GEN/clkout2'
   Total number of paths / destination ports: 10 / 10
 -------------------------------------------------------------------------
-Offset:              0.582ns (Levels of Logic = 2)
+Offset:              0.570ns (Levels of Logic = 2)
   Source:            SW<0> (PAD)
   Destination:       DISPLAY/P2S_LED/buff_0 (FF)
   Destination Clock: CLK_GEN/clkout2 rising
@@ -1346,12 +1347,12 @@ Offset:              0.582ns (Levels of Logic = 2)
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     IBUF:I->O             4   0.000   0.539  SW_0_IBUF (SW_0_IBUF)
+     IBUF:I->O             2   0.000   0.527  SW_0_IBUF (SW_0_IBUF)
      LUT5:I1->O            1   0.043   0.000  DISPLAY/P2S_LED/Mmux__n011011 (DISPLAY/P2S_LED/_n0110<0>)
      FDE:D                    -0.000          DISPLAY/P2S_LED/buff_0
     ----------------------------------------
-    Total                      0.582ns (0.043ns logic, 0.539ns route)
-                                       (7.4% logic, 92.6% route)
+    Total                      0.570ns (0.043ns logic, 0.527ns route)
+                                       (7.5% logic, 92.5% route)
 
 =========================================================================
 Timing constraint: Default OFFSET OUT AFTER for Clock 'CLK_GEN/clkout2'
@@ -1400,7 +1401,7 @@ Clock to Setup on destination clock CLK_GEN/clkout2
 Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
 ---------------+---------+---------+---------+---------+
 CLK_GEN/clkout2|    5.780|         |         |         |
-CLK_GEN/clkout3|    1.743|    2.416|         |         |
+CLK_GEN/clkout3|    1.747|    2.416|         |         |
 ---------------+---------+---------+---------+---------+
 
 Clock to Setup on destination clock CLK_GEN/clkout3
@@ -1408,7 +1409,7 @@ Clock to Setup on destination clock CLK_GEN/clkout3
                | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
 Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
 ---------------+---------+---------+---------+---------+
-CLK_GEN/clkout2|    3.336|         |    2.065|         |
+CLK_GEN/clkout2|    3.597|         |    2.063|         |
 CLK_GEN/clkout3|    5.761|    3.899|    2.095|         |
 ---------------+---------+---------+---------+---------+
 
@@ -1416,13 +1417,13 @@ CLK_GEN/clkout3|    5.761|    3.899|    2.095|         |
 
 
 Total REAL time to Xst completion: 16.00 secs
-Total CPU time to Xst completion: 15.84 secs
+Total CPU time to Xst completion: 15.91 secs
  
 --> 
 
-Total memory usage is 4712088 kilobytes
+Total memory usage is 4712728 kilobytes
 
 Number of errors   :    0 (   0 filtered)
-Number of warnings :  116 (   0 filtered)
+Number of warnings :  119 (   0 filtered)
 Number of infos    :   73 (   0 filtered)
 

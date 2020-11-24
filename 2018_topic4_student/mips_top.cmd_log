@@ -4,3 +4,4 @@ xst -intstyle ise -ifn "Z:/code/Computer-Architecture/2018_topic4_student/mips_t
 xst -intstyle ise -ifn "Z:/code/Computer-Architecture/2018_topic4_student/mips_top.xst" -ofn "Z:/code/Computer-Architecture/2018_topic4_student/mips_top.syr" 
 xst -intstyle ise -ifn "Z:/code/Computer-Architecture/2018_topic4_student/mips_top.xst" -ofn "Z:/code/Computer-Architecture/2018_topic4_student/mips_top.syr" 
 xst -intstyle ise -ifn "Z:/code/Computer-Architecture/2018_topic4_student/mips_top.xst" -ofn "Z:/code/Computer-Architecture/2018_topic4_student/mips_top.syr" 
+xst -intstyle ise -ifn "Z:/code/Computer-Architecture/2018_topic4_student/mips_top.xst" -ofn "Z:/code/Computer-Architecture/2018_topic4_student/mips_top.syr" 

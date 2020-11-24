@@ -9,10 +9,30 @@ Time resolution is 1 ps
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
 # restart
+# run 1.00us
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
+# restart
 # run all
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
-Stopped at time : 12837730 ns : File "//Mac/Home/code/Computer-Architecture/2018_topic4_student/datapath.v" Line 162
+Stopped at time : 15826690 ns : File "//Mac/Home/code/Computer-Architecture/2018_topic4_student/datapath.v" Line 410
+# restart
+# run 1.00us
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
+# restart
+# run 1.00us
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
+# restart
+# run 1.00us
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
+# restart
+# run 1.00us
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
 # restart
 # run 1.00us
 Simulator is doing circuit initialization process.

@@ -190,7 +190,7 @@ module datapath (
 		else if (if_en) begin
 			case (pc_src_ctrl)
 				PC_NEXT: inst_addr <= inst_addr_next; //if阶段的
-				PC_JUMP: inst_addr <= {inst_addr[31:28], inst_data[25:0], 2'b0}; //if阶段的
+				PC_JUMP: inst_addr <= {inst_addr[31:28], inst_data_id[25:0], 2'b0}; //if阶段的
 				PC_JR: inst_addr <= data_rs; //id 阶段的
 				PC_BEQ: inst_addr <= rs_rt_equal ? branch_target : inst_addr_next_mem;
 				PC_BNE: inst_addr <= rs_rt_equal ? inst_addr_next_mem : branch_target;
