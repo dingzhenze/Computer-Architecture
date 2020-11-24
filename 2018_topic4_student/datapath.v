@@ -62,12 +62,14 @@ module datapath (
 	input wire [1:0] exe_fwd_a_ctrl,
 	input wire [1:0] exe_fwd_b_ctrl,
 	input wire mem_fwd_m,
+	input wire is_load_id_ctrl,
 	output reg mem_ren_exe,
 	output reg mem_ren_mem,
 	output reg wb_wen_wb,
 	output reg [4:0] regw_addr_wb,
-	output wire [4:0] addr_rs_exe,
-	output wire [4:0] addr_rt_exe,
+	// output wire [4:0] addr_rs_exe,
+	// output wire [4:0] addr_rt_exe,
+	output reg is_load_exe,
 	output wire rs_rt_equal
 	);
 	
@@ -78,7 +80,6 @@ module datapath (
 	reg [31:0] data_rs_src_exe, data_rt_src_exe;
 	reg [31:0] offset;
 	reg [31:0] branch_target;
-	
 	// control signals
 	reg [2:0] pc_src_exe, pc_src_mem;
 	reg [1:0] exe_a_src_exe, exe_b_src_exe;
@@ -95,7 +96,7 @@ module datapath (
 	reg [4:0] regw_addr_id;
 	wire [4:0] addr_rs, addr_rt, addr_rd;
 	wire [31:0] data_rs, data_rt, data_imm;
-	
+	reg is_load_id;
 	// EXE signals
 	reg [31:0] inst_addr_exe;
 	reg [31:0] inst_addr_next_exe;
@@ -188,11 +189,11 @@ module datapath (
 		end
 		else if (if_en) begin
 			case (pc_src_ctrl)
-				PC_NEXT: inst_addr = inst_addr_next;
-				PC_JUMP: inst_addr = {inst_addr[31:28], inst_data[25:0], 2'b0};
-				PC_JR: inst_addr = data_rs;
-				PC_BEQ: inst_addr = rs_rt_equal ? branch_target : inst_addr_next_mem;
-				PC_BNE: inst_addr = rs_rt_equal ? inst_addr_next_mem : branch_target;
+				PC_NEXT: inst_addr <= inst_addr_next; //if阶段的
+				PC_JUMP: inst_addr <= {inst_addr[31:28], inst_data[25:0], 2'b0}; //if阶段的
+				PC_JR: inst_addr <= data_rs; //id 阶段的
+				PC_BEQ: inst_addr <= rs_rt_equal ? branch_target : inst_addr_next_mem;
+				PC_BNE: inst_addr <= rs_rt_equal ? inst_addr_next_mem : branch_target;
 			endcase
 		end
 	end
@@ -204,12 +205,14 @@ module datapath (
 			inst_addr_id <= 0;
 			inst_data_id <= 0;
 			inst_addr_next_id <= 0;
+			is_load_id <= 0;
 		end
 		else if (id_en) begin
 			id_valid <= if_valid;
 			inst_addr_id <= inst_addr;
 			inst_data_id <= inst_data;
 			inst_addr_next_id <= inst_addr_next;
+			is_load_id <= is_load_id_ctrl;
 		end
 	end
 	
@@ -291,6 +294,7 @@ module datapath (
 			data_rs_src_exe <= 0;
 			data_rt_src_exe <= 0;
 			mem_fwd_m_exe <= 0;
+			is_load_exe <= 0;
 		end
 		else if (exe_en) begin
 			exe_valid <= id_valid;
@@ -312,19 +316,21 @@ module datapath (
 			data_rs_src_exe <= data_rs_src;
 			data_rt_src_exe <= data_rt_src;
 			mem_fwd_m_exe <= mem_fwd_m;
+			is_load_exe <= is_load_id;
 		end
 	end
 	
-	assign
-		addr_rs_exe = inst_data_exe[25:21],
-		addr_rt_exe = inst_data_exe[20:16];
-
-	always @(*) begin
-		is_branch_exe <= (pc_src_exe != PC_NEXT);
-	end
+	// 还用吗？
+	// assign
+	// 	addr_rs_exe = inst_data_exe[25:21],
+	// 	addr_rt_exe = inst_data_exe[20:16];
+	// 
+	// always @(*) begin
+	// 	is_branch_exe <= (pc_src_exe != PC_NEXT);
+	// end
 	
-	assign
-		rs_rt_equal_exe = (data_rs_src_exe == data_rt_src_exe);
+	// assign
+	// 	rs_rt_equal_exe = (data_rs_src_exe == data_rt_src_exe);
 	
 	// always @(*) begin
 	// 	data_rs_src = data_rs_exe;
@@ -404,20 +410,20 @@ module datapath (
 			mem_fwd_m_mem <= mem_fwd_m_exe;
 		end
 	end
+	//不再exe控制pc了吧
+	// always @(*) begin
+	// 	is_branch_mem <= (pc_src_mem != PC_NEXT);
+	// end
 	
-	always @(*) begin
-		is_branch_mem <= (pc_src_mem != PC_NEXT);
-	end
-	
-	always @(*) begin
-		case (pc_src_mem)
-			PC_JUMP: branch_target_mem <= {inst_addr_mem[31:28], inst_data_mem[25:0], 2'b0};
-			PC_JR: branch_target_mem <= data_rs_mem;
-			PC_BEQ: branch_target_mem <= rs_rt_equal_mem? alu_out_mem:inst_addr_next_mem;  
-			PC_BNE: branch_target_mem <= rs_rt_equal_mem? inst_addr_next_mem:alu_out_mem;  
-			default: branch_target_mem <= inst_addr_next_mem;  // will never used
-		endcase
-	end
+	// always @(*) begin
+	// 	case (pc_src_mem)
+	// 		PC_JUMP: branch_target_mem <= {inst_addr_mem[31:28], inst_data_mem[25:0], 2'b0};
+	// 		PC_JR: branch_target_mem <= data_rs_mem;
+	// 		PC_BEQ: branch_target_mem <= rs_rt_equal_mem? alu_out_mem:inst_addr_next_mem;  
+	// 		PC_BNE: branch_target_mem <= rs_rt_equal_mem? inst_addr_next_mem:alu_out_mem;  
+	// 		default: branch_target_mem <= inst_addr_next_mem;  // will never used
+	// 	endcase
+	// end
 	
 	assign
 		mem_ren = mem_ren_mem,

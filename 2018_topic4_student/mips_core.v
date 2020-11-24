@@ -102,12 +102,16 @@ module mips_core (
 		//forwarding
 		.exe_fwd_a_ctrl(exe_fwd_a_ctrl),
 		.exe_fwd_b_ctrl(exe_fwd_b_ctrl),
+		.mem_fwd_m(mem_fwd_m),
+		.mem_ren_exe(mem_ren_exe),
 		.mem_ren_mem(mem_ren_mem),
 		.wb_wen_wb(wb_wen_wb),
 		.regw_addr_wb(regw_addr_wb),
-		.addr_rs_exe(addr_rs_exe),
-		.addr_rt_exe(addr_rt_exe)
-
+		.is_load_exe(is_load_exe),
+		.is_load(is_load_id),
+		// .addr_rs_exe(addr_rs_exe),
+		// .addr_rt_exe(addr_rt_exe),
+		.rs_rt_equal(rs_rt_equal)
 	);
 	
 	// data path
@@ -160,11 +164,16 @@ module mips_core (
 		//forwarding signals
 		.exe_fwd_a_ctrl(exe_fwd_a_ctrl),
 		.exe_fwd_b_ctrl(exe_fwd_b_ctrl),
+		.mem_fwd_m(mem_fwd_m),
+		.mem_ren_exe(mem_ren_exe),
 		.mem_ren_mem(mem_ren_mem),
 		.wb_wen_wb(wb_wen_wb),
 		.regw_addr_wb(regw_addr_wb),
-		.addr_rs_exe(addr_rs_exe),
-		.addr_rt_exe(addr_rt_exe)
+		.is_load_exe(is_load_exe),
+		.is_load_id_ctrl(is_load_id),
+		// .addr_rs_exe(addr_rs_exe),
+		// .addr_rt_exe(addr_rt_exe),
+		.rs_rt_equal(rs_rt_equal)
 	);
 	
 endmodule
