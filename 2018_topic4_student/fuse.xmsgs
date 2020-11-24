@@ -5,8 +5,5 @@
      behavior or data corruption.  It is strongly advised that
      users do not edit the contents of this file. -->
 <messages>
-<msg type="warning" file="HDLCompiler" num="1016" delta="unknown" >"D:/Code/ISE/2018_topic3_student/mips_core.v" Line 114: Port <arg fmt="%s" index="1">mem_ren_exe</arg> is not connected to this instance
-</msg>
-
 </messages>
 

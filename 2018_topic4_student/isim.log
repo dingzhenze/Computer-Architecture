@@ -1,5 +1,5 @@
 ISim log file
-Running: D:\Code\ISE\2018_topic3_student\sim_mips_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb D:/Code/ISE/2018_topic3_student/sim_mips_isim_beh.wdb 
+Running: Z:\code\Computer-Architecture\2018_topic4_student\sim_mips_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb Z:/code/Computer-Architecture/2018_topic4_student/sim_mips_isim_beh.wdb 
 ISim P.20131013 (signature 0x7708f090)
 This is a Full version of ISim.
 Time resolution is 1 ps
