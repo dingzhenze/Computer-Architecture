@@ -62,14 +62,12 @@ module datapath (
 	input wire [1:0] exe_fwd_a_ctrl,
 	input wire [1:0] exe_fwd_b_ctrl,
 	input wire mem_fwd_m,
-	input wire is_load_id_ctrl,
 	output reg mem_ren_exe,
 	output reg mem_ren_mem,
 	output reg wb_wen_wb,
 	output reg [4:0] regw_addr_wb,
 	// output wire [4:0] addr_rs_exe,
 	// output wire [4:0] addr_rt_exe,
-	output reg is_load_exe,
 	output wire rs_rt_equal
 	);
 	
@@ -96,7 +94,7 @@ module datapath (
 	reg [4:0] regw_addr_id;
 	wire [4:0] addr_rs, addr_rt, addr_rd;
 	wire [31:0] data_rs, data_rt, data_imm;
-	reg is_load_id;
+
 	// EXE signals
 	reg [31:0] inst_addr_exe;
 	reg [31:0] inst_addr_next_exe;
@@ -205,14 +203,12 @@ module datapath (
 			inst_addr_id <= 0;
 			inst_data_id <= 0;
 			inst_addr_next_id <= 0;
-			is_load_id <= 0;
 		end
 		else if (id_en) begin
 			id_valid <= if_valid;
 			inst_addr_id <= inst_addr;
 			inst_data_id <= inst_data;
 			inst_addr_next_id <= inst_addr_next;
-			is_load_id <= is_load_id_ctrl;
 		end
 	end
 	
@@ -294,7 +290,6 @@ module datapath (
 			data_rs_src_exe <= 0;
 			data_rt_src_exe <= 0;
 			mem_fwd_m_exe <= 0;
-			is_load_exe <= 0;
 		end
 		else if (exe_en) begin
 			exe_valid <= id_valid;
@@ -316,10 +311,10 @@ module datapath (
 			data_rs_src_exe <= data_rs_src;
 			data_rt_src_exe <= data_rt_src;
 			mem_fwd_m_exe <= mem_fwd_m;
-			is_load_exe <= is_load_id;
 		end
 	end
 	
+
 	// 还用吗？
 	// assign
 	// 	addr_rs_exe = inst_data_exe[25:21],

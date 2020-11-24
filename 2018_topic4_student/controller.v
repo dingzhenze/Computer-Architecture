@@ -56,8 +56,6 @@ module controller (/*AUTOARG*/
 	// input wire [4:0] addr_rt_exe, //?
 	input wire rs_rt_equal,
 	input wire [4:0] regw_addr_wb,
-	input wire is_load_exe,
-	output reg is_load,
 	output reg mem_fwd_m,
 	output reg [1:0] exe_fwd_a_ctrl,
 	output reg [1:0] exe_fwd_b_ctrl
@@ -66,8 +64,10 @@ module controller (/*AUTOARG*/
 	`include "mips_define.vh"
 	
 	// instruction decode
-	reg rs_used, rt_used, is_store;
-	
+	reg rs_used, rt_used, is_store,is_load;
+	wire is_load_exe;
+	assign is_load_exe= mem_ren_exe;
+
 	always @(*) begin
 		pc_src = PC_NEXT;
 		imm_ext = 0;
@@ -219,8 +219,8 @@ module controller (/*AUTOARG*/
 		endcase
 	end
 
-	wire addr_rs;
-	wire addr_rt;
+	wire [4:0] addr_rs;
+	wire [4:0] addr_rt;
 	assign
 		addr_rs = inst[25:21],
 		addr_rt = inst[20:16];
@@ -230,12 +230,12 @@ module controller (/*AUTOARG*/
 
 	always @(*) begin
 		load_stall = 0;
-		// if(rs_used && regw_addr_exe == addr_rs && wb_wen_exe && is_load_exe)begin
-		// 	load_stall = 1;
-		// end
-		// if(rt_used && regw_addr_exe == addr_rt && wb_wen_exe && is_load_exe &&~is_store)begin
-		// 	load_stall = 1;
-		// end
+		if(rs_used && regw_addr_exe == addr_rs && wb_wen_exe && is_load_exe)begin
+			load_stall = 1;
+		end
+		if(rt_used && regw_addr_exe == addr_rt && wb_wen_exe && is_load_exe &&~is_store)begin
+			load_stall = 1;
+		end
 	end
 
 	always @(*) begin
@@ -249,20 +249,23 @@ module controller (/*AUTOARG*/
 		exe_fwd_a_ctrl = FROM_REG;
 		exe_fwd_b_ctrl = FROM_REG;
 		if (wb_wen_exe && regw_addr_exe != 0 ) begin
-			if(regw_addr_exe == addr_rs)
+			if(rs_used && regw_addr_exe == addr_rs)
 				exe_fwd_a_ctrl = FROM_EXE_ALUOUT;
-			if(regw_addr_exe == addr_rt)
+			if(rt_used && regw_addr_exe == addr_rt)
 				exe_fwd_b_ctrl = FROM_EXE_ALUOUT;
-			if(regw_addr_exe == addr_rs && mem_ren_exe)
-				exe_fwd_a_ctrl = FROM_MEM_DM;
-			if(regw_addr_exe == addr_rt && mem_ren_exe)
-				exe_fwd_b_ctrl = FROM_MEM_DM;
 		end 
-		
-		if(wb_wen_mem && regw_addr_mem != 0) begin
-			if(regw_addr_exe != addr_rs && regw_addr_mem == addr_rs) 
+		// after lw stall
+		if(regw_addr_mem != 0 && mem_ren_mem && wb_wen_mem)begin
+			if(rs_used && (regw_addr_mem == addr_rs) )
+					exe_fwd_a_ctrl = FROM_MEM_DM;
+			if(rt_used && (regw_addr_mem == addr_rt) )
+					exe_fwd_b_ctrl = FROM_MEM_DM;
+		end
+
+		if(wb_wen_mem && regw_addr_mem != 0 && !mem_ren_mem) begin
+			if(rs_used && regw_addr_exe != addr_rs && regw_addr_mem == addr_rs) 
 				exe_fwd_a_ctrl = FROM_MEM_ALUOUT;
-			if(regw_addr_exe != addr_rt && regw_addr_mem == addr_rt)
+			if(rt_used && regw_addr_exe != addr_rt && regw_addr_mem == addr_rt)
 				exe_fwd_b_ctrl = FROM_MEM_ALUOUT;
 		end
 	end	
@@ -305,12 +308,7 @@ module controller (/*AUTOARG*/
 	// 		end
 	// 	end
 	// end
-	
-	// always @(*) begin
-	// 	branch_stall = 0;
-	// 	if (pc_src != PC_NEXT || is_branch_exe || is_branch_mem)
-	// 		branch_stall = 1;
-	// end
+
 	
 	`ifdef DEBUG
 	reg debug_step_prev;
@@ -360,7 +358,8 @@ module controller (/*AUTOARG*/
 		// end
 		else if (load_stall) begin
 			if_en = 0;
-			id_rst = 1;
+			id_en = 0;
+			exe_rst = 1;
 		end
 	end
 	

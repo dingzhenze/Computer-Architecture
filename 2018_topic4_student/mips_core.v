@@ -107,8 +107,6 @@ module mips_core (
 		.mem_ren_mem(mem_ren_mem),
 		.wb_wen_wb(wb_wen_wb),
 		.regw_addr_wb(regw_addr_wb),
-		.is_load_exe(is_load_exe),
-		.is_load(is_load_id),
 		// .addr_rs_exe(addr_rs_exe),
 		// .addr_rt_exe(addr_rt_exe),
 		.rs_rt_equal(rs_rt_equal)
@@ -169,8 +167,6 @@ module mips_core (
 		.mem_ren_mem(mem_ren_mem),
 		.wb_wen_wb(wb_wen_wb),
 		.regw_addr_wb(regw_addr_wb),
-		.is_load_exe(is_load_exe),
-		.is_load_id_ctrl(is_load_id),
 		// .addr_rs_exe(addr_rs_exe),
 		// .addr_rt_exe(addr_rt_exe),
 		.rs_rt_equal(rs_rt_equal)
