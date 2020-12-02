@@ -57,7 +57,7 @@ module mips_core (
 	wire [4:0] regw_addr_wb;
 	wire [4:0] addr_rs_exe;
 	wire [4:0] addr_rt_exe;
-	
+	wire sign;
 	// controller
 	controller CONTROLLER (
 		.clk(clk),
@@ -99,6 +99,7 @@ module mips_core (
 		.wb_rst(wb_rst),
 		.wb_en(wb_en),
 		.wb_valid(wb_valid),
+		.sign(sign),
 		//forwarding
 		.exe_fwd_a_ctrl(exe_fwd_a_ctrl),
 		.exe_fwd_b_ctrl(exe_fwd_b_ctrl),
@@ -159,6 +160,7 @@ module mips_core (
 		.wb_rst(wb_rst),
 		.wb_en(wb_en),
 		.wb_valid(wb_valid),
+		.sign(sign),
 		//forwarding signals
 		.exe_fwd_a_ctrl(exe_fwd_a_ctrl),
 		.exe_fwd_b_ctrl(exe_fwd_b_ctrl),

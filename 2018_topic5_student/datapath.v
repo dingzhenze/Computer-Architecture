@@ -30,6 +30,7 @@ module datapath (
 	input wire [1:0] wb_addr_src_ctrl,  // address source to write data back to registers
 	input wire wb_data_src_ctrl,  // data source of data being written back to registers
 	input wire wb_wen_ctrl,  // register write enable signal
+	input wire sign, // for alu
 	// IF signals
 	input wire if_rst,  // stage reset signal
 	input wire if_en,  // stage enable signal
@@ -104,6 +105,7 @@ module datapath (
 	wire [31:0] alu_out_exe;
 	wire rs_rt_equal_exe;
 	reg mem_fwd_m_exe;
+	reg sign_exe;
 	
 	// MEM signals
 	reg [31:0] inst_addr_mem;
@@ -260,6 +262,7 @@ module datapath (
 	// EXE stage
 	always @(posedge clk) begin
 		if (exe_rst) begin
+			sign_exe <= 0;
 			exe_valid <= 0;
 			inst_addr_exe <= 0;
 			inst_data_exe <= 0;
@@ -281,6 +284,7 @@ module datapath (
 			mem_fwd_m_exe <= 0;
 		end
 		else if (exe_en) begin
+			sign_exe <= sign;
 			exe_valid <= id_valid;
 			inst_addr_exe <= inst_addr_id;
 			inst_data_exe <= inst_data_id;
@@ -322,7 +326,8 @@ module datapath (
 		.a(opa_exe),
 		.b(opb_exe),
 		.oper(exe_alu_oper_exe),
-		.result(alu_out_exe)
+		.result(alu_out_exe),
+		.sign(sign_exe)
 		);
 	
 	// MEM stage

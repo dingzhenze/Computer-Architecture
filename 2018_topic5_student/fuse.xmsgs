@@ -5,11 +5,5 @@
      behavior or data corruption.  It is strongly advised that
      users do not edit the contents of this file. -->
 <messages>
-<msg type="warning" file="HDLCompiler" num="1016" delta="unknown" >"D:/Code/ISE/2018_topic5_student/mips_core.v" Line 62: Port <arg fmt="%s" index="1">sign</arg> is not connected to this instance
-</msg>
-
-<msg type="warning" file="HDLCompiler" num="1016" delta="unknown" >"D:/Code/ISE/2018_topic5_student/datapath.v" Line 321: Port <arg fmt="%s" index="1">sign</arg> is not connected to this instance
-</msg>
-
 </messages>
 

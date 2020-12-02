@@ -48,11 +48,7 @@ module alu (
 				result = b << a;
 			end
 			EXE_ALU_SR: begin
-				if(sign) result = ($signed(b)) >>> a;
-				//if(sign) begin
-					//tmp = {32{b[31]},b} >> {32'b0,a};
-					//result = tmp[31:0];
-				//end
+				if(sign) result = $signed(b) >>> a;
 				else result = b >> a;
 			end
 		endcase
