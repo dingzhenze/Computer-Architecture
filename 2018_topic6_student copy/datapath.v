@@ -228,7 +228,7 @@ module datapath (
 		data_imm = imm_ext_ctrl ? {{16{inst_data_id[15]}}, inst_data_id[15:0]} : {16'b0, inst_data_id[15:0]};
 	
 	assign cp_addr_r = addr_rd;
-	assign cp_addr_w = addr_rt;
+	assign cp_addr_w = addr_rd;
 
 	always @(*) begin
 		regw_addr_id = inst_data_id[15:11];

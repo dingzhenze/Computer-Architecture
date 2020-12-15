@@ -375,7 +375,8 @@ module controller (/*AUTOARG*/
 								wb_wen = 1;
 							end
 							CP_FUNC_MT: begin
-								cp_oper=EXE_CP_STORE;
+								cp_oper = EXE_CP_STORE;
+								rt_used = 1;
 							end
 						endcase
 					end
