@@ -67,18 +67,12 @@ module datapath (
 	output reg mem_ren_mem,
 	output reg wb_wen_wb,
 	output reg [4:0] regw_addr_wb,
-	// output wire [4:0] addr_rs_exe,
-	// output wire [4:0] addr_rt_exe,
-	output wire rs_rt_equal
-	//exception
-	output wire ir_en, //一直为1
-	input wire epc_ctrl,
+	output wire rs_rt_equal,
+	//interrupt
+	input wire cp_oper,
+	input wire [31:0] cpr,
 	input wire [31:0] epc,
-	output wire [31:0] cp0_return_addr,
-	output wire [4:0] cp_addr_r,
-	output wire [4:0] cp_addr_w,
-	output wire [31:0] cp_Gdata,
-	input wire [31:0] cp_Cdata
+	input wire [31:0] epc_ctrl
 	);
 	
 	`include "mips_define.vh"
@@ -88,7 +82,6 @@ module datapath (
 	reg [31:0] data_rs_src_exe, data_rt_src_exe;
 	reg [31:0] offset;
 	reg [31:0] branch_target;
-	
 	// control signals
 	reg [2:0] pc_src_exe, pc_src_mem;
 	reg [1:0] exe_a_src_exe, exe_b_src_exe;
@@ -132,13 +125,17 @@ module datapath (
 	reg [31:0] alu_out_wb;
 	reg [31:0] mem_din_wb;
 	reg [31:0] regw_data_wb;
+
 	// interrupt
+	wire [31:0] return_addr;
+	wire [4:0] cp_rd;
+	wire [31:0] gpr;
 	wire [31:0] cpr_exe;
- 	// debug
+	
+	// debug
 	`ifdef DEBUG
 	wire [31:0] debug_data_reg;
 	reg [31:0] debug_data_signal;
-	assign ir_en=1;
 	
 	always @(posedge clk) begin
 		case (debug_addr[4:0])
@@ -189,22 +186,21 @@ module datapath (
 			inst_addr <= 0;
 		end
 		else if (if_en) begin
-			if(epc_ctrl) begin 
-				inst_addr <= epc;
-			end else if begin
-				case (pc_src_ctrl)
-					PC_NEXT: inst_addr <= inst_addr_next; //if阶段
-					PC_JUMP: inst_addr <= {inst_addr[31:28], inst_data_id[25:0], 2'b0}; //if阶段
-					PC_JR: inst_addr <= data_rs; //id 阶段
-					PC_BEQ: inst_addr <= rs_rt_equal ? branch_target : inst_addr_next;
-					PC_BNE: inst_addr <= rs_rt_equal ? inst_addr_next : branch_target;
-				endcase
-			end
+			case (pc_src_ctrl)
+				PC_NEXT: inst_addr <= inst_addr_next; //if阶段
+				PC_JUMP: inst_addr <= {inst_addr[31:28], inst_data_id[25:0], 2'b0}; //if阶段
+				PC_JR: inst_addr <= data_rs; //id 阶段
+				PC_BEQ: inst_addr <= rs_rt_equal ? branch_target : inst_addr_next;
+				PC_BNE: inst_addr <= rs_rt_equal ? inst_addr_next : branch_target;
+			endcase
+
+			case (pc_src_ctrl)  // 0和1和上面一样吗？
+				PC_NEXT: return_addr <= inst_addr;
+				PC_JUMP: return_addr <= inst_addr_id;
+			endcase
 		end
 	end
-	assign cp0_return_addr = pc_src_ctrl ? inst_addr_id : inst_addr;
-
-
+	
 	// ID stage
 	always @(posedge clk) begin
 		if (id_rst) begin
@@ -226,9 +222,9 @@ module datapath (
 		addr_rt = inst_data_id[20:16],
 		addr_rd = inst_data_id[15:11],
 		data_imm = imm_ext_ctrl ? {{16{inst_data_id[15]}}, inst_data_id[15:0]} : {16'b0, inst_data_id[15:0]};
-	
-	assign cp_addr_r = addr_rd;
-	assign cp_addr_w = addr_rt;
+
+	assign
+		cp_rd = addr_rd;
 
 	always @(*) begin
 		regw_addr_id = inst_data_id[15:11];
@@ -254,6 +250,16 @@ module datapath (
 		.data_w(regw_data_wb)
 		);
 	
+	cp0 CP0 (
+		.epc(epc),
+		.epc_ctrl(epc_ctrl),
+		.return_addr(return_addr),
+		.cp_oper(cp_oper),
+		.cp_rd(cp_rd),
+		.cpr(cpr),
+		.gpr(gpr)
+	);
+	
 	//pipeline forward, intermedia wire data_rs_src/data_rt_src
 	always @(*) begin
 		data_rs_src = data_rs;
@@ -274,9 +280,10 @@ module datapath (
 
 	assign
 		rs_rt_equal = (data_rs_src == data_rt_src);
-	
-	assign cp_Gdata = data_rt_src;
 
+	assign
+		gpr = data_rt_src;
+	
 	always @(*) begin
 		offset = {data_imm[29:0], 2'b0};
 		branch_target = inst_addr_next_id + offset;
@@ -328,7 +335,7 @@ module datapath (
 			data_rs_src_exe <= data_rs_src;
 			data_rt_src_exe <= data_rt_src;
 			mem_fwd_m_exe <= mem_fwd_m;
-			cpr_exe <= cp_Cdata;
+			cpr_exe <= cpr;
 		end
 	end
 
@@ -339,13 +346,11 @@ module datapath (
 			EXE_A_SA: opa_exe = {27'b0,inst_data_exe[10:6]};
 			EXE_A_LINK: opa_exe = inst_addr_next_exe;
 			EXE_A_RS: opa_exe = data_rs_src_exe;
-			EXE_A_INT: opa_exe = cpr_exe;
 		endcase
 		case (exe_b_src_exe)
 			EXE_B_IMM: opb_exe = data_imm_exe;
 			EXE_B_LINK: opb_exe = 4;
 			EXE_B_RT: opb_exe = data_rt_src_exe;
-			EXE_B_INT: opb_exe = 0;
 		endcase
 	end
 	
