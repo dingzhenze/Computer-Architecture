@@ -58,6 +58,10 @@ module mips_core (
 	wire [4:0] addr_rs_exe;
 	wire [4:0] addr_rt_exe;
 	wire sign;
+	//exceptions
+	wire jump_en;
+	wire [1:0] jump_en;
+
 	// controller
 	controller CONTROLLER (
 		.clk(clk),
@@ -110,7 +114,9 @@ module mips_core (
 		.regw_addr_wb(regw_addr_wb),
 		// .addr_rs_exe(addr_rs_exe),
 		// .addr_rt_exe(addr_rt_exe),
-		.rs_rt_equal(rs_rt_equal)
+		.rs_rt_equal(rs_rt_equal),
+		.cp_oper(cp_oper),
+		.jump_en(jump_en)
 	);
 	
 	// data path
@@ -174,4 +180,22 @@ module mips_core (
 		.rs_rt_equal(rs_rt_equal)
 	);
 	
+	cp0 CP0 (
+		.clk(clk),  // main clock
+		`ifdef DEBUG
+		.debug_en(debug_en),
+		.debug_step(debug_step),
+		`endif
+		.oper(cp_oper),// CP0 operation type
+		.addr_r(),// read address
+		.data_r(),// read data
+		.addr_w(),// write address
+		.data_w(),// write data
+		.rst(rst),
+		.ir_en(),// interrupt enable 现在是否应该去响应中断
+		.ir_in(),// external interrupt input 一个按键
+		.ret_addr(),// target instruction address to store when interrupt occurred 
+		.jump_en(jump_en),// force jump enable signal when interrupt authorised or ERET occurred
+		.jump_addr() // target instruction address to jump to
+	);
 endmodule
