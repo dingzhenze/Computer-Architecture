@@ -4,13 +4,13 @@ Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.08 secs
+Total CPU time to Xst completion: 0.10 secs
  
 --> Parameter xsthdpdir set to D:/Code/GithubClone/Computer-Architecture/2018_topic6_student copy/xst
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.10 secs
+Total CPU time to Xst completion: 0.11 secs
  
 --> Reading design: mips_top.prj
 
@@ -50,6 +50,10 @@ Analyzing Verilog file "D:\Code\GithubClone\Computer-Architecture\2018_topic6_st
 Parsing verilog file "define.vh" included at line 1.
 Parsing module <datapath>.
 Parsing verilog file "mips_define.vh" included at line 84.
+Analyzing Verilog file "D:\Code\GithubClone\Computer-Architecture\2018_topic6_student copy\cp0.v" into library work
+Parsing verilog file "define.vh" included at line 1.
+Parsing module <cp0>.
+Parsing verilog file "mips_define.vh" included at line 26.
 Analyzing Verilog file "D:\Code\GithubClone\Computer-Architecture\2018_topic6_student copy\controller.v" into library work
 Parsing verilog file "define.vh" included at line 1.
 Parsing module <controller>.
@@ -95,7 +99,7 @@ Parsing module <mips_top>.
 
 
 Total REAL time to Xst completion: 5.00 secs
-Total CPU time to Xst completion: 5.09 secs
+Total CPU time to Xst completion: 5.05 secs
  
 --> 
 

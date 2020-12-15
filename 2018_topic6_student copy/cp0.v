@@ -1,3 +1,6 @@
+`include "define.vh"
+
+
 module cp0 (
 	input wire clk,  // main clock
 	// debug
@@ -19,6 +22,8 @@ module cp0 (
 	output reg jump_en,  // force jump enable signal when interrupt authorised or ERET occurred
 	output reg [31:0] jump_addr // target instruction address to jump to
 	);
+	
+	`include "mips_define.vh"
 	// interrupt determination
 	
 		// interrupt
@@ -53,7 +58,7 @@ module cp0 (
 
 	// Exception Handler Base Register
 
-	reg [31:0] regfile [0:31];
+	reg [31:0] regs [0:31];
 
 	assign data_r = regs[addr_r];
 
@@ -62,7 +67,7 @@ module cp0 (
 
 	// jump determination
 	always @(posedge clk)begin
-		if (if_rst) begin
+		if (rst) begin
             jump_addr = 0;
             jump_en = 0;
         end else begin
@@ -74,13 +79,7 @@ module cp0 (
             end else if (ir) begin //external interrupt
                 jump_addr = regs[CP0_EHBR];
                 jump_en = 1;
-            end else begin
-                if (if_en) begin
-                    jump_en = 0;
-                    jump_addr = 32'b0;
-                end
-                
-            end
+            end                
         end 
 		if(ir)                 
 			regs[CP0_EPCR] = ret_addr;
