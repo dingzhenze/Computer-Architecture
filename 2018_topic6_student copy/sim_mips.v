@@ -36,6 +36,8 @@ module sim_mips;
 
 		#100 rst = 1;
 		#100 rst = 0;
+		#300 interrupter = 1;
+		#100 interrupter = 0;
 
 	end
 	

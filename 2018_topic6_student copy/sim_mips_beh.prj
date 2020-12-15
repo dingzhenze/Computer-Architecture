@@ -1,6 +1,7 @@
 verilog work "regfile.v"
 verilog work "alu.v"
 verilog work "datapath.v"
+verilog work "cp0.v"
 verilog work "controller.v"
 verilog work "mips_core.v"
 verilog work "inst_rom.v"

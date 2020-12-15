@@ -87,6 +87,7 @@ module controller (/*AUTOARG*/
 		unrecognized = 0;
 		is_load = 0;
 		is_store = 0;
+		cp_oper = 0;
 		case (inst[31:26])
 			INST_R: begin
 				case (inst[5:0])

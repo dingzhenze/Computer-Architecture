@@ -4,10 +4,10 @@
 module cp0 (
 	input wire clk,  // main clock
 	// debug
-	`ifdef DEBUG
-	input wire [4:0] debug_addr,  // debug address
-	output reg [31:0] debug_data,  // debug data
-	`endif
+	// `ifdef DEBUG
+	// input wire [4:0] debug_addr,  // debug address
+	// output reg [31:0] debug_data,  // debug data
+	// `endif
 	// operations (read in ID stage and write in EXE stage)
 	input wire [1:0] oper,  // CP0 operation type
 	input wire [4:0] addr_r,  // read address
@@ -16,8 +16,8 @@ module cp0 (
 	input wire [31:0] data_w,  // write data
 	// exceptions (check exceptions in MEM stage)
 	input wire rst,  // synchronous reset
-	input wire ir_en,  // interrupt enable 现在是否应该去响应中�
-	input wire ir_in,  // external interrupt input 一个按�
+	input wire ir_en,  // interrupt enable 现在是否应该去响应中�
+	input wire ir_in,  // external interrupt input 一个按�
 	input wire [31:0] ret_addr,  // target instruction address to store when interrupt occurred 
 	output reg jump_en,  // force jump enable signal when interrupt authorised or ERET occurred
 	output reg [31:0] jump_addr // target instruction address to jump to
@@ -67,6 +67,8 @@ module cp0 (
 
 	// jump determination
 	always @(posedge clk)begin
+		jump_en = 0;
+		jump_addr = 0;
 		if (rst) begin
             jump_addr = 0;
             jump_en = 0;

@@ -61,7 +61,7 @@ module mips_core (
 	wire [4:0] addr_rt_exe;
 	wire sign;
 	//exceptions
-	wire jump_en,ir_en,epc_ctrl;
+	wire ir_en,epc_ctrl;
 	wire [1:0] cp_oper;
 	wire [31:0] epc,cp0_return_addr,cp_Gdata,cp_Cdata;
 	wire [4:0] cp_addr_r,cp_addr_w;
@@ -120,7 +120,7 @@ module mips_core (
 		// .addr_rt_exe(addr_rt_exe),
 		.rs_rt_equal(rs_rt_equal),
 		.cp_oper(cp_oper),
-		.jump_en(jump_en)
+		.jump_en(epc_ctrl)
 	);
 	
 	// data path
@@ -195,20 +195,20 @@ module mips_core (
 	
 	cp0 CP0 (
 		.clk(clk),  // main clock
-		`ifdef DEBUG
-		.debug_en(debug_en),
-		.debug_step(debug_step),
-		`endif
+		// `ifdef DEBUG
+		// .debug_en(debug_en),
+		// .debug_step(debug_step),
+		// `endif
 		.oper(cp_oper),// CP0 operation type
 		.addr_r(cp_addr_r),// read address
 		.data_r(cp_Cdata),// read data
 		.addr_w(cp_addr_w),// write address
 		.data_w(cp_Gdata),// write data
 		.rst(rst),
-		.ir_en(ir_en),// interrupt enable 现在是否应该去响应中�
-		.ir_in(interrupter),// external interrupt input 一个按�
+		.ir_en(ir_en),// interrupt enable 现在是否应该去响应中�
+		.ir_in(interrupter),// external interrupt input 一个按�
 		.ret_addr(cp0_return_addr),// target instruction address to store when interrupt occurred 
-		.jump_en(jump_en),// force jump enable signal when interrupt authorised or ERET occurred
+		.jump_en(epc_ctrl),// force jump enable signal when interrupt authorised or ERET occurred
 		.jump_addr(epc) // target instruction address to jump to
 	);
 endmodule
