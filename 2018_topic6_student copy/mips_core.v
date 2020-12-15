@@ -62,7 +62,7 @@ module mips_core (
 	wire sign;
 	//exceptions
 	wire jump_en,ir_en,epc_ctrl;
-	wire [1:0] jump_en;
+	wire [1:0] cp_oper;
 	wire [31:0] epc,cp0_return_addr,cp_Gdata,cp_Cdata;
 	wire [4:0] cp_addr_r,cp_addr_w;
 
@@ -205,8 +205,8 @@ module mips_core (
 		.addr_w(cp_addr_w),// write address
 		.data_w(cp_Gdata),// write data
 		.rst(rst),
-		.ir_en(ir_en),// interrupt enable 现在是否应该去响应中断
-		.ir_in(interrupter),// external interrupt input 一个按键
+		.ir_en(ir_en),// interrupt enable 现在是否应该去响应中�
+		.ir_in(interrupter),// external interrupt input 一个按�
 		.ret_addr(cp0_return_addr),// target instruction address to store when interrupt occurred 
 		.jump_en(jump_en),// force jump enable signal when interrupt authorised or ERET occurred
 		.jump_addr(epc) // target instruction address to jump to

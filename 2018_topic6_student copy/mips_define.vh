@@ -10,14 +10,14 @@ localparam
 localparam
 	EXE_A_RS     = 0,
 	EXE_A_SA     = 1,
-	EXE_A_LINK   = 2;
+	EXE_A_LINK   = 2,
 	EXE_A_INT = 3;
 
 // EXE B sources
 localparam
 	EXE_B_RT     = 0,
 	EXE_B_IMM    = 1,
-	EXE_B_LINK   = 2;
+	EXE_B_LINK   = 2,
 	EXE_B_INT = 3;
 
 // EXE ALU operations

@@ -354,7 +354,7 @@ module controller (/*AUTOARG*/
 			INST_CP0: begin
 				case(inst[25])
 					1: begin
-						case(inst[5:0])begin
+						case(inst[5:0])
 							CP0_CO_ERET: begin
 								cp_oper=EXE_CP0_ERET;
 							end
@@ -364,7 +364,7 @@ module controller (/*AUTOARG*/
 						endcase
 					end
 					0: begin
-						case(inst[24:21])begin
+						case(inst[24:21])
 							CP_FUNC_MF: begin
 								exe_a_src = EXE_A_INT; //from CPR
 								exe_b_src = EXE_B_INT; //0

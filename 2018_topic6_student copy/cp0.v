@@ -13,13 +13,22 @@ module cp0 (
 	input wire [31:0] data_w,  // write data
 	// exceptions (check exceptions in MEM stage)
 	input wire rst,  // synchronous reset
-	input wire ir_en,  // interrupt enable 现在是否应该去响应中断
-	input wire ir_in,  // external interrupt input 一个按键
+	input wire ir_en,  // interrupt enable 现在是否应该去响应中�
+	input wire ir_in,  // external interrupt input 一个按�
 	input wire [31:0] ret_addr,  // target instruction address to store when interrupt occurred 
 	output reg jump_en,  // force jump enable signal when interrupt authorised or ERET occurred
 	output reg [31:0] jump_addr // target instruction address to jump to
 	);
 	// interrupt determination
+	
+		// interrupt
+	reg ir_prev;
+	always @(posedge clk) begin
+		ir_prev <= ir_in;
+	end
+	wire ir_in_c;
+	assign ir_in_c = ~ir_prev & ir_in;
+
 	wire ir;
 	wire eret;
 	assign eret = (oper == EXE_CP0_ERET);
@@ -27,7 +36,7 @@ module cp0 (
 	always @(posedge clk) begin
 		if (rst)
 			ir_wait <= 0;
-		else if (ir_in)
+		else if (ir_in_c)
 			ir_wait <= 1;
 		else if (eret)
 			ir_wait <= 0;
@@ -77,3 +86,4 @@ module cp0 (
 			regs[CP0_EPCR] = ret_addr;
 	end
 
+endmodule

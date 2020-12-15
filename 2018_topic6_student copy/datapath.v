@@ -69,7 +69,7 @@ module datapath (
 	output reg [4:0] regw_addr_wb,
 	// output wire [4:0] addr_rs_exe,
 	// output wire [4:0] addr_rt_exe,
-	output wire rs_rt_equal
+	output wire rs_rt_equal,
 	//exception
 	output wire ir_en, //一直为1
 	input wire epc_ctrl,
@@ -133,7 +133,7 @@ module datapath (
 	reg [31:0] mem_din_wb;
 	reg [31:0] regw_data_wb;
 	// interrupt
-	wire [31:0] cpr_exe;
+	reg [31:0] cpr_exe;
  	// debug
 	`ifdef DEBUG
 	wire [31:0] debug_data_reg;
@@ -191,7 +191,7 @@ module datapath (
 		else if (if_en) begin
 			if(epc_ctrl) begin 
 				inst_addr <= epc;
-			end else if begin
+			end else begin
 				case (pc_src_ctrl)
 					PC_NEXT: inst_addr <= inst_addr_next; //if阶段
 					PC_JUMP: inst_addr <= {inst_addr[31:28], inst_data_id[25:0], 2'b0}; //if阶段
