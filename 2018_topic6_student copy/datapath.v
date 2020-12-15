@@ -36,7 +36,7 @@ module datapath (
 	input wire if_en,  // stage enable signal
 	output reg if_valid,  // working flag
 	output reg inst_ren,  // instruction read enable signal
-	output reg [31:0] inst_addr,  // address of instruction needed
+	output wire [31:0] inst_addr_out,  // address of instruction needed
 	input wire [31:0] inst_data,  // instruction fetched
 	// ID signals
 	input wire id_rst,
@@ -70,6 +70,13 @@ module datapath (
 	// output wire [4:0] addr_rs_exe,
 	// output wire [4:0] addr_rt_exe,
 	output wire rs_rt_equal
+	//exception
+	input wire epc_ctrl,
+	input wire [31:0] epc,
+	output wire [31:0] cp0_return_addr,
+	output wire [4:0] cp_addr_r,
+	output wire [31:0] cp_Gdata,
+	input wire [31:0] cp_Cdata
 	);
 	
 	`include "mips_define.vh"
@@ -79,6 +86,7 @@ module datapath (
 	reg [31:0] data_rs_src_exe, data_rt_src_exe;
 	reg [31:0] offset;
 	reg [31:0] branch_target;
+	reg [31:0] inst_addr;
 	// control signals
 	reg [2:0] pc_src_exe, pc_src_mem;
 	reg [1:0] exe_a_src_exe, exe_b_src_exe;
@@ -187,6 +195,8 @@ module datapath (
 		end
 	end
 	
+	assign inst_addr_out = epc_ctrl?epc:inst_addr;
+
 	// ID stage
 	always @(posedge clk) begin
 		if (id_rst) begin

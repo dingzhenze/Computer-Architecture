@@ -45,7 +45,8 @@ module mips (
 		.mem_wen(mem_wen),
 		.mem_addr(mem_addr),
 		.mem_dout(mem_data_w),
-		.mem_din(mem_data_r)
+		.mem_din(mem_data_r),
+		.interrupter(interrupter)
 		);
 	
 	inst_rom INST_ROM (

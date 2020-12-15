@@ -24,7 +24,9 @@ module mips_core (
 	output wire mem_wen,  // memory write enable signal
 	output wire [31:0] mem_addr,  // address of memory
 	output wire [31:0] mem_dout,  // data writing to memory
-	input wire [31:0] mem_din  // data read from memory
+	input wire [31:0] mem_din,  // data read from memory
+	//interrupter bottom input
+	input wire interrupter
 	);
 	
 	// control signals
@@ -59,8 +61,10 @@ module mips_core (
 	wire [4:0] addr_rt_exe;
 	wire sign;
 	//exceptions
-	wire jump_en;
+	wire jump_en,ir_en,epc_ctrl;
 	wire [1:0] jump_en;
+	wire [31:0] epc,cp0_return_addr,cp_Gdata,cp_Cdata;
+	wire [4:0] cp_addr_r,cp_addr_w;
 
 	// controller
 	controller CONTROLLER (
@@ -177,7 +181,16 @@ module mips_core (
 		.regw_addr_wb(regw_addr_wb),
 		// .addr_rs_exe(addr_rs_exe),
 		// .addr_rt_exe(addr_rt_exe),
-		.rs_rt_equal(rs_rt_equal)
+		.rs_rt_equal(rs_rt_equal),
+		//exceptions
+		.ir_en(ir_en),
+		.epc_ctrl(epc_ctrl),
+		.epc(epc),
+		.cp0_return_addr(cp0_return_addr),
+		.cp_addr_r(cp_addr_r),
+		.cp_addr_w(cp_addr_w),
+		.cp_Gdata(cp_Gdata),
+		.cp_Cdata(cp_Cdata)
 	);
 	
 	cp0 CP0 (
@@ -187,15 +200,15 @@ module mips_core (
 		.debug_step(debug_step),
 		`endif
 		.oper(cp_oper),// CP0 operation type
-		.addr_r(),// read address
-		.data_r(),// read data
-		.addr_w(),// write address
-		.data_w(),// write data
+		.addr_r(cp_addr_r),// read address
+		.data_r(cp_Cdata),// read data
+		.addr_w(cp_addr_w),// write address
+		.data_w(cp_Gdata),// write data
 		.rst(rst),
-		.ir_en(),// interrupt enable 现在是否应该去响应中断
-		.ir_in(),// external interrupt input 一个按键
-		.ret_addr(),// target instruction address to store when interrupt occurred 
+		.ir_en(ir_en),// interrupt enable 现在是否应该去响应中断
+		.ir_in(interrupter),// external interrupt input 一个按键
+		.ret_addr(cp0_return_addr),// target instruction address to store when interrupt occurred 
 		.jump_en(jump_en),// force jump enable signal when interrupt authorised or ERET occurred
-		.jump_addr() // target instruction address to jump to
+		.jump_addr(epc) // target instruction address to jump to
 	);
 endmodule
