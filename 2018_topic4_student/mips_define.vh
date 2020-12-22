@@ -9,11 +9,11 @@ localparam
 // EXE A sources
 localparam
 	//EXE_A_RS     = 0,
-	//EXE_A_SA     = 1,
+	EXE_A_SA     = 0,
 	//EXE_A_LINK   = 2,
 	//EXE_A_BRANCH = 3;
-	EXE_A_LINK  = 0,
-	EXE_A_RS    = 1;
+	EXE_A_LINK  = 1,
+	EXE_A_RS    = 2;
 
 // EXE B sources
 localparam
@@ -30,13 +30,13 @@ localparam
 	EXE_ALU_ADD    = 0,
 	EXE_ALU_SUB    = 1,
 	EXE_ALU_SLT    = 2,
-	//EXE_ALU_LUI    = 3,
+	EXE_ALU_LUI    = 3,
 	EXE_ALU_AND    = 4,
 	EXE_ALU_OR     = 5;
-	//EXE_ALU_XOR    = 6,
-	//EXE_ALU_NOR    = 7,
-	//EXE_ALU_SL     = 8,
-	//EXE_ALU_SR     = 9;
+	EXE_ALU_XOR    = 6,
+	EXE_ALU_NOR    = 7,
+	EXE_ALU_SL     = 8,
+	EXE_ALU_SR     = 9;
 
 // WB address sources
 localparam

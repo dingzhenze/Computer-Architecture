@@ -269,45 +269,7 @@ module controller (/*AUTOARG*/
 				exe_fwd_b_ctrl = FROM_MEM_ALUOUT;
 		end
 	end	
-	// 	reg_stall = 0;
-	// 	exe_fwd_a_ctrl = FROM_REG;
-	// 	exe_fwd_b_ctrl = FROM_REG;
-	// 	if (wb_wen_mem && regw_addr_mem != 0) begin
-	// 		// after LW stall one cycle
-	// 		if (mem_ren_mem && (regw_addr_mem == addr_rs_exe || regw_addr_mem == addr_rt_exe)) begin
-	// 			reg_stall = 1;
-	// 		end
-	// 		// from ALU result
-	// 		else begin
-	// 			if (regw_addr_mem == addr_rs_exe) begin
-	// 				exe_fwd_a_ctrl = FROM_EXMEM_ALUOUT;
-	// 			end
-	// 			if (regw_addr_mem == addr_rt_exe) begin
-	// 				exe_fwd_b_ctrl = FROM_EXMEM_ALUOUT;
-	// 			end
-	// 		end
-	// 	end
-	// 	else if (wb_wen_wb && regw_addr_wb != 0) begin
-	// 		// already stall one cycle
-	// 		if (mem_ren_mem) begin
-	// 			if (regw_addr_wb == addr_rs_exe) begin
-	// 				exe_fwd_a_ctrl = FROM_MEMWB_DM;
-	// 			end
-	// 			if (regw_addr_wb == addr_rt_exe) begin
-	// 				exe_fwd_b_ctrl = FROM_MEMWB_DM;
-	// 			end
-	// 		end
-	// 		// from ALU result 2 cycles ago
-	// 		else begin
-	// 			if (regw_addr_mem != addr_rs_exe && regw_addr_wb == addr_rs_exe) begin
-	// 				exe_fwd_a_ctrl = FROM_MEMWB_ALUOUT;
-	// 			end
-	// 			if (regw_addr_mem != addr_rt_exe && regw_addr_wb == addr_rt_exe) begin
-	// 				exe_fwd_b_ctrl = FROM_MEMWB_ALUOUT;
-	// 			end
-	// 		end
-	// 	end
-	// end
+
 
 	
 	`ifdef DEBUG

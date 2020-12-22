@@ -169,17 +169,6 @@ module datapath (
 		inst_ren = ~if_rst;
 	end
 	
-	// always @(posedge clk) begin
-	// 	if (if_rst) begin
-	// 		inst_addr <= 0;
-	// 	end
-	// 	else if (if_en) begin
-	// 		if (is_branch_mem)
-	// 			inst_addr <= branch_target_mem;
-	// 		else
-	// 			inst_addr <= inst_addr_next;
-	// 	end
-	// end
 
 	always @(posedge clk) begin
 		if (if_rst) begin
@@ -187,9 +176,9 @@ module datapath (
 		end
 		else if (if_en) begin
 			case (pc_src_ctrl)
-				PC_NEXT: inst_addr <= inst_addr_next; //if阶段�
-				PC_JUMP: inst_addr <= {inst_addr[31:28], inst_data_id[25:0], 2'b0}; //if阶段�
-				PC_JR: inst_addr <= data_rs; //id 阶段�
+				PC_NEXT: inst_addr <= inst_addr_next; //if阶段�
+				PC_JUMP: inst_addr <= {inst_addr[31:28], inst_data_id[25:0], 2'b0}; //if阶段�
+				PC_JR: inst_addr <= data_rs; //id 阶段�
 				PC_BEQ: inst_addr <= rs_rt_equal ? branch_target : inst_addr_next;
 				PC_BNE: inst_addr <= rs_rt_equal ? inst_addr_next : branch_target;
 			endcase
@@ -313,51 +302,19 @@ module datapath (
 			mem_fwd_m_exe <= mem_fwd_m;
 		end
 	end
-	
-
-	// 还用吗？
-	// assign
-	// 	addr_rs_exe = inst_data_exe[25:21],
-	// 	addr_rt_exe = inst_data_exe[20:16];
-	// 
-	// always @(*) begin
-	// 	is_branch_exe <= (pc_src_exe != PC_NEXT);
-	// end
-	
-	// assign
-	// 	rs_rt_equal_exe = (data_rs_src_exe == data_rt_src_exe);
-	
-	// always @(*) begin
-	// 	data_rs_src = data_rs_exe;
-	// 	data_rt_src = data_rt_exe;
-	// 	case(exe_fwd_a_ctrl)
-	// 			FROM_EXMEM_ALUOUT: data_rs_src = alu_out_mem;
-	// 			FROM_MEMWB_DM: data_rs_src = mem_din;
-	// 			FROM_MEMWB_ALUOUT: data_rs_src = regw_data_wb;
-	// 			FROM_REG: data_rs_src = data_rs_exe;
-	// 	endcase
-	// 	case(exe_fwd_b_ctrl)
-	// 			FROM_EXMEM_ALUOUT: data_rt_src = alu_out_mem;
-	// 			FROM_MEMWB_DM: data_rt_src = mem_din;
-	// 			FROM_MEMWB_ALUOUT: data_rt_src = regw_data_wb;
-	// 			FROM_REG: data_rt_src = data_rt_exe;
-	// 	endcase
-	// end
 
 	always @(*) begin
 		opa_exe = data_rs_src_exe; // change previous data_rt/s_exe to data_rt/s_src
 		opb_exe = data_rt_src_exe;
 		case (exe_a_src_exe)
+			EXE_A_SA: opa_exe = {{27{inst_data_exe[10]}},inst_data_exe[10:6]};
 			EXE_A_LINK: opa_exe = inst_addr_next_exe;
 			EXE_A_RS: opa_exe = data_rs_src_exe;
-			// EXE_A_BRANCH: opa_exe = inst_addr_next_exe;
 		endcase
 		case (exe_b_src_exe)
 			EXE_B_IMM: opb_exe = data_imm_exe;
 			EXE_B_LINK: opb_exe = 4;
 			EXE_B_RT: opb_exe = data_rt_src_exe;
-			// EXE_B_LINK: opb_exe = 32'h0;  // linked address is the next one of current instruction
-			// EXE_B_BRANCH: opb_exe = {data_imm_exe[29:0], 2'b0};
 		endcase
 	end
 	
@@ -405,20 +362,7 @@ module datapath (
 			mem_fwd_m_mem <= mem_fwd_m_exe;
 		end
 	end
-	//不再exe控制pc了吧
-	// always @(*) begin
-	// 	is_branch_mem <= (pc_src_mem != PC_NEXT);
-	// end
 	
-	// always @(*) begin
-	// 	case (pc_src_mem)
-	// 		PC_JUMP: branch_target_mem <= {inst_addr_mem[31:28], inst_data_mem[25:0], 2'b0};
-	// 		PC_JR: branch_target_mem <= data_rs_mem;
-	// 		PC_BEQ: branch_target_mem <= rs_rt_equal_mem? alu_out_mem:inst_addr_next_mem;  
-	// 		PC_BNE: branch_target_mem <= rs_rt_equal_mem? inst_addr_next_mem:alu_out_mem;  
-	// 		default: branch_target_mem <= inst_addr_next_mem;  // will never used
-	// 	endcase
-	// end
 	
 	assign
 		mem_ren = mem_ren_mem,
