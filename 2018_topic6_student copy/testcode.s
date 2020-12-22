@@ -1,20 +1,12 @@
-00000824 main:	and $1, $0, $0		# address of data[0]
-34240050	    ori $4, $1, 80		# address of data[0]
-0c00000a call:	jal sum			# call function
-20050004 	    addi $5, $0, 4		# counter
-ac820000 return:sw $2, 0($4)		# store result
-8c890000		lw $9, 0($4)		# check sw
-ac890004		sw $9, 4($4)		# store result again
-01244022	    sub $8, $9, $4		# sub: $8 <- $9 - $4
-08000008 finish:j finish			# dead loop
-00000000 nop			# done
-00004020 sum:	add $8, $0, $0		# sum function entry
-8c890000 loop:	lw $9, 0($4)		# load data
-01094020	    add $8, $8, $9		# sum
-20a5ffff		addi $5, $5, -1		# counter - 1
-0005182a	    slt $3, $0, $5		# finish?
-1460fffb		bne $3, $0, loop		# finish?
-20840004	    addi $4, $4, 4		# address + 4
-03e00008	    jr $ra			# return
-01001025	    or $2, $8, $0		# move result to $v0
-00000000 nop			# done
+ 0:	3c010000 	lui	R1,0x0		//main entry
+ 4:	24210020 	addiu	R1,R1,32
+ 8:	40811800 	mtc0	R1, R3
+ c:	00001020 	add	R2,R0,R0
+10:	00001820 	add	R3,R0,R0
+14:	20420001 	addi	R2,R2,1		//loop
+18:	08000005 	j	14
+1c:	00000000 	nop
+20:	40041000 	mfc0	R4,R2		//handler
+24:	20630001 	addi	R3,R3,1
+28:	42000018 	eret
+2c:	00000000 	nop
