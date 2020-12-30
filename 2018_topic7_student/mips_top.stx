@@ -53,7 +53,7 @@ Parsing verilog file "mips_define.vh" included at line 84.
 Analyzing Verilog file "D:\Code\ISE\2018_topic7_student\cp0.v" into library work
 Parsing verilog file "define.vh" included at line 1.
 Parsing module <cp0>.
-Parsing verilog file "mips_define.vh" included at line 26.
+Parsing verilog file "mips_define.vh" included at line 28.
 Analyzing Verilog file "D:\Code\ISE\2018_topic7_student\controller.v" into library work
 Parsing verilog file "define.vh" included at line 1.
 Parsing module <controller>.
@@ -98,8 +98,8 @@ Parsing verilog file "define.vh" included at line 1.
 Parsing module <mips_top>.
 
 
-Total REAL time to Xst completion: 5.00 secs
-Total CPU time to Xst completion: 5.42 secs
+Total REAL time to Xst completion: 6.00 secs
+Total CPU time to Xst completion: 5.15 secs
  
 --> 
 

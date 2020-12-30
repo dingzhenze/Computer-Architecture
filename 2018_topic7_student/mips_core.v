@@ -26,7 +26,11 @@ module mips_core (
 	output wire [31:0] mem_dout,  // data writing to memory
 	input wire [31:0] mem_din,  // data read from memory
 	//interrupter bottom input
-	input wire interrupter
+	input wire interrupter,
+	input wire ram_stall,
+	input wire rom_stall,
+	output wire rom_cs,
+	output wire ram_cs
 	);
 	
 	// control signals
@@ -210,10 +214,12 @@ module mips_core (
 		.addr_w(cp_addr_w),// write address
 		.data_w(cp_Gdata),// write data
 		.rst(rst),
-		.ir_en(ir_en),// interrupt enable 现在是否应该去响应中�
-		.ir_in(interrupter),// external interrupt input 一个按�
+		.if_rst(if_rst),
+		.ir_en(ir_en),// interrupt enable 现在是否应该去响应中�
+		.ir_in(interrupter),// external interrupt input 一个按�
 		.ret_addr(cp0_return_addr),// target instruction address to store when interrupt occurred 
 		.jump_en(epc_ctrl),// force jump enable signal when interrupt authorised or ERET occurred
-		.jump_addr(epc) // target instruction address to jump to
+		.jump_addr(epc), // target instruction address to jump to
+		.if_en(if_en)
 	);
 endmodule

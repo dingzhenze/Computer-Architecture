@@ -5,10 +5,7 @@
      behavior or data corruption.  It is strongly advised that
      users do not edit the contents of this file. -->
 <messages>
-<msg type="warning" file="HDLCompiler" num="1016" delta="unknown" >"D:/Code/ISE/2018_topic7_student/mips.v" Line 52: Port <arg fmt="%s" index="1">rst</arg> is not connected to this instance
-</msg>
-
-<msg type="warning" file="HDLCompiler" num="1016" delta="unknown" >"D:/Code/ISE/2018_topic7_student/mips.v" Line 59: Port <arg fmt="%s" index="1">rst</arg> is not connected to this instance
+<msg type="warning" file="HDLCompiler" num="1016" delta="unknown" >"D:/Code/ISE/2018_topic7_student/mips.v" Line 68: Port <arg fmt="%s" index="1">ack</arg> is not connected to this instance
 </msg>
 
 </messages>

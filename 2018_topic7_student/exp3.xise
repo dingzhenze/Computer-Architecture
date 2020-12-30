@@ -434,8 +434,8 @@
     <!-- project is analyzed based on files automatically identified as       -->
     <!-- include files.                                                       -->
     <file xil_pn:name="define.vh" xil_pn:type="FILE_VERILOG"/>
-    <file xil_pn:name="function.vh" xil_pn:type="FILE_VERILOG"/>
     <file xil_pn:name="mips_define.vh" xil_pn:type="FILE_VERILOG"/>
+    <file xil_pn:name="function.vh" xil_pn:type="FILE_VERILOG"/>
   </autoManagedFiles>
 
 </project>

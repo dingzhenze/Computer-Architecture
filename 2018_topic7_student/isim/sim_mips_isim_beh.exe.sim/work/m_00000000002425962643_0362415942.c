@@ -25,7 +25,7 @@ static const char *ng0 = "D:/Code/ISE/2018_topic7_student/data_ram.v";
 static const char *ng1 = "data_mem.hex";
 static int ng2[] = {0, 0};
 static int ng3[] = {1, 0};
-static int ng4[] = {8, 0};
+static int ng4[] = {3, 0};
 static unsigned int ng5[] = {0U, 0U};
 
 
@@ -607,7 +607,7 @@ LAB16:    xsi_set_current_line(42, ng0);
 LAB50:    xsi_set_current_line(43, ng0);
     t2 = ((char*)((ng2)));
     t3 = (t0 + 3024);
-    xsi_vlogvar_assign_value(t3, t2, 0, 0, 4);
+    xsi_vlogvar_assign_value(t3, t2, 0, 0, 2);
 
 LAB17:    xsi_set_current_line(45, ng0);
     t2 = (t0 + 1824U);
@@ -622,7 +622,7 @@ LAB6:    xsi_set_current_line(32, ng0);
 LAB9:    xsi_set_current_line(33, ng0);
     t11 = ((char*)((ng2)));
     t12 = (t0 + 3024);
-    xsi_vlogvar_assign_value(t12, t11, 0, 0, 4);
+    xsi_vlogvar_assign_value(t12, t11, 0, 0, 2);
     goto LAB8;
 
 LAB13:    t21 = (t13 + 4);
@@ -638,9 +638,9 @@ LAB18:    xsi_set_current_line(36, ng0);
     t30 = *((char **)t29);
     t31 = ((char*)((ng3)));
     memset(t32, 0, 8);
-    xsi_vlog_unsigned_add(t32, 32, t30, 4, t31, 32);
+    xsi_vlog_unsigned_add(t32, 32, t30, 2, t31, 32);
     t33 = (t0 + 3024);
-    xsi_vlogvar_assign_value(t33, t32, 0, 0, 4);
+    xsi_vlogvar_assign_value(t33, t32, 0, 0, 2);
     xsi_set_current_line(37, ng0);
     t2 = (t0 + 3024);
     t3 = (t2 + 56U);

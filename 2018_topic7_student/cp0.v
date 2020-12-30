@@ -16,11 +16,13 @@ module cp0 (
 	input wire [31:0] data_w,  // write data
 	// exceptions (check exceptions in MEM stage)
 	input wire rst,  // synchronous reset
+	input wire if_rst,
 	input wire ir_en,  // interrupt enable 现在是否应该去响应中�
 	input wire ir_in,  // external interrupt input 一个按�
 	input wire [31:0] ret_addr,  // target instruction address to store when interrupt occurred 
 	output reg jump_en,  // force jump enable signal when interrupt authorised or ERET occurred
-	output reg [31:0] jump_addr // target instruction address to jump to
+	output reg [31:0] jump_addr, // target instruction address to jump to
+	input wire if_en
 	);
 	
 	`include "mips_define.vh"
@@ -67,12 +69,19 @@ module cp0 (
 
 	// jump determination
 	always @(posedge clk)begin
-		jump_en = 0;
-		jump_addr = 0;
-		if (rst) begin
+		// jump_en = 0;
+		// jump_addr = 0;
+		// if (rst) begin
+        //     jump_addr = 0;
+        //     jump_en = 0;
+		if (if_rst) begin
             jump_addr = 0;
             jump_en = 0;
         end else begin
+			if (if_en) begin
+				jump_en = 0;
+				jump_addr = 0;
+			end
             if (oper == EXE_CP0_ERET) begin //eret
                 jump_addr = regs[CP0_EPCR];
                 jump_en = 1;
@@ -81,7 +90,11 @@ module cp0 (
             end else if (ir) begin //external interrupt
                 jump_addr = regs[CP0_EHBR];
                 jump_en = 1;
-            end                
+			end
+            // end else if (if_en) begin
+			// 	jump_en = 0;
+			// 	jump_addr = 0;
+			// end
         end 
 		if(ir)                 
 			regs[CP0_EPCR] = ret_addr;
