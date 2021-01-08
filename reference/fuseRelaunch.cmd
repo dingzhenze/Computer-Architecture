@@ -1,1 +1,1 @@
--intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -lib "secureip" -o "D:/Code/ISE/reference/sim_cache_isim_beh.exe" -prj "D:/Code/ISE/reference/sim_cache_beh.prj" "work.sim_cache" "work.glbl" 
+-intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -lib "secureip" -o "Z:/code/Computer-Architecture/reference/sim_top_isim_beh.exe" -prj "Z:/code/Computer-Architecture/reference/sim_top_beh.prj" "work.sim_top" "work.glbl" 

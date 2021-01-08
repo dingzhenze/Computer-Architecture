@@ -65,16 +65,28 @@ module mips (
 		.rom_stall(rom_stall)
 		);
 	
-	data_ram DATA_RAM (
-		.clk(clk),
-		.rst(rst),
+	cmu CMU (
+		.stall(ram_stall),
 		.cs(ram_cs),
+		.rst(rst),
+		.clk(clk),
 		.we(mem_wen),
-		.addr({2'b0, mem_addr[31:2]}),
-		//.addr(mem_addr),
+		// .addr({2'b0, mem_addr[31:2]}), 
+		.addr(mem_addr),
 		.din(mem_data_w),
-		.dout(mem_data_r),
-		.ram_stall(ram_stall)
-		);
+		.dout(mem_data_r)
+	);
+
+	// data_ram DATA_RAM (
+	// 	.clk(clk),
+	// 	.rst(rst),
+	// 	.cs(ram_cs),
+	// 	.we(mem_wen),
+	// 	.addr({2'b0, mem_addr[31:2]}),
+	// 	//.addr(mem_addr),
+	// 	.din(mem_data_w),
+	// 	.dout(mem_data_r),
+	// 	.ram_stall(ram_stall)
+	// 	);
 	
 endmodule
