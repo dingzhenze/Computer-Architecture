@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -lib "secureip" -o "D:/Code/ISE/2018_topic8_student/sim_cache_isim_beh.exe" -prj "D:/Code/ISE/2018_topic8_student/sim_cache_beh.prj" "work.sim_cache" "work.glbl" 
